@@ -1,0 +1,27 @@
+void setup() {
+  // put your setup code here, to run once:
+pinMode (2, OUTPUT);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  //Плавно увеличиваем яркость для пин 6:
+  for (int i = 0; i <= 255; i++){
+    analogWrite (6, i);
+    delay (10);
+  }
+  
+  //включаем светодиод для пин 2:
+  digitalWrite (2, HIGH);
+  delay (1000);
+
+  //Плавно уменьшаем яркость для пин 6:
+  for (int i = 255; i >=0; i--){
+    analogWrite(6, i);
+    delay (10);
+  }
+
+  //выключаем светодиод для пин 2:
+  digitalWrite (2, LOW);
+  delay(1000);
+}
