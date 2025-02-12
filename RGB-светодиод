@@ -1,0 +1,27 @@
+const int redPin = 3;   // Пин красного
+const int greenPin = 5; // Пин зеленого
+const int bluePin = 9;  // Пин синего
+
+void setup() {
+  pinMode(redPin, OUTPUT);
+  pinMode(greenPin, OUTPUT);
+  pinMode(bluePin, OUTPUT);
+}
+
+void loop() {
+  // Красный → Зелёный
+  fadeColor(redPin, greenPin);
+  // Зелёный → Синий
+  fadeColor(greenPin, bluePin);
+  // Синий → Красный
+  fadeColor(bluePin, redPin);
+}
+
+// Функция плавного перехода от одного цвета к другому
+void fadeColor(int from, int to) {
+  for (int i = 0; i <= 255; i++) {
+    analogWrite(from, 255 - i);
+    analogWrite(to, i);
+    delay(10); // Скорость перехода
+  }
+}
