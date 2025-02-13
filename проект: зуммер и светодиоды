@@ -1,0 +1,60 @@
+#include "pitches.h"
+
+int buzzer = 8; // Пин зуммера
+int redLED = 5;  // Красный светодиод
+int yellowLED = 6;  // Желтый светодиод
+int greenLED = 7; // Зеленый светодиод
+
+// Мелодия "We Wish You a Merry Christmas"
+int melody[] = {
+  NOTE_G4, NOTE_C5, NOTE_C5, NOTE_D5, NOTE_C5, NOTE_B4, NOTE_A4,
+  NOTE_A4, NOTE_D5, NOTE_D5, NOTE_E5, NOTE_D5, NOTE_C5, NOTE_B4,
+  NOTE_G4, NOTE_G4, NOTE_E5, NOTE_E5, NOTE_F5, NOTE_E5, NOTE_D5, NOTE_C5,
+  NOTE_A4, NOTE_A4, NOTE_F5, NOTE_F5, NOTE_G5, NOTE_F5, NOTE_E5, NOTE_D5,
+  NOTE_B4, NOTE_G5, NOTE_G4, NOTE_C5, NOTE_E5, NOTE_A4, NOTE_A4, NOTE_B4, NOTE_C5
+};
+
+// Длительности нот (4 - четвертные, 8 - восьмые)
+int noteDurations[] = {
+  4, 4, 8, 8, 8, 8, 4,
+  4, 4, 8, 8, 8, 8, 4,
+  4, 4, 8, 8, 8, 8, 4, 4,
+  4, 4, 8, 8, 8, 8, 4, 4,
+  8, 8, 8, 8, 4, 4, 4, 4
+};
+
+void setup() {
+  pinMode(buzzer, OUTPUT);
+  pinMode(redLED, OUTPUT);
+  pinMode(greenLED, OUTPUT);
+  pinMode(yellowLED, OUTPUT);
+}
+
+void loop() {
+  int melodyLength = sizeof(melody) / sizeof(melody[0]); // Автоопределение длины массива
+  
+  for (int i = 0; i < melodyLength; i++) {
+    int noteDuration = 1000 / noteDurations[i]; // Длительность ноты
+
+    // **Правильное переключение светодиодов по ритму**  
+    if (i % 3 == 0) {  
+      digitalWrite(redLED, HIGH);  
+    } else if (i % 3 == 1) {  
+      digitalWrite(yellowLED, HIGH);  
+    } else {  
+      digitalWrite(greenLED, HIGH);  
+    }
+
+    // Воспроизводим ноту
+    tone(buzzer, melody[i], noteDuration);
+    delay(noteDuration * 1.3);
+
+    // Выключаем все светодиоды перед следующей нотой
+    digitalWrite(redLED, LOW);
+    digitalWrite(greenLED, LOW);
+    digitalWrite(yellowLED, LOW);
+    
+    noTone(buzzer);
+    delay(50); // Пауза перед следующей нотой
+  }
+}
