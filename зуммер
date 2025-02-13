@@ -2,25 +2,34 @@
 
 int buzzer = 8; // Пин, к которому подключен зуммер
 
-// Ноты и длительности (4 = четверть, 8 = восьмая, 2 = половинная и т. д.)
+// Ноты мелодии "We Wish You a Merry Christmas"
 int melody[] = {
-  NOTE_G4, NOTE_A4, NOTE_B4, NOTE_C5, NOTE_D5, NOTE_B4, NOTE_A4, NOTE_G4, // I'm still standing
-  NOTE_G4, NOTE_A4, NOTE_B4, NOTE_C5, NOTE_D5, NOTE_B4, NOTE_A4, NOTE_G4  // повтор
+  NOTE_G4, NOTE_C5, NOTE_C5, NOTE_D5, NOTE_C5, NOTE_B4, NOTE_A4,
+  NOTE_A4, NOTE_D5, NOTE_D5, NOTE_E5, NOTE_D5, NOTE_C5, NOTE_B4,
+  NOTE_G4, NOTE_G4, NOTE_E5, NOTE_E5, NOTE_F5, NOTE_E5, NOTE_D5, NOTE_C5,
+  NOTE_A4, NOTE_A4, NOTE_F5, NOTE_F5, NOTE_G5, NOTE_F5, NOTE_E5, NOTE_D5,
+  NOTE_B4, NOTE_G5, NOTE_G4, NOTE_C5, NOTE_E5, NOTE_A4, NOTE_A4, NOTE_B4, NOTE_C5
 };
 
+// Длительности нот (4 - четвертные, 8 - восьмые и т. д.)
 int noteDurations[] = {
-  8, 8, 8, 8, 4, 8, 8, 4,
-  8, 8, 8, 8, 4, 8, 8, 4
+  4, 4, 8, 8, 8, 8, 4,
+  4, 4, 8, 8, 8, 8, 4,
+  4, 4, 8, 8, 8, 8, 4, 4,
+  4, 4, 8, 8, 8, 8, 4, 4,
+  8, 8, 8, 8, 4, 4, 4, 4
 };
 
 void setup() {
-  for (int i = 0; i < 16; i++) {
+  
+}
+
+void loop() {
+  // Оставляем пустым, если нужно сыграть мелодию один раз
+  for (int i = 0; i < 38; i++) {
     int noteDuration = 1000 / noteDurations[i];
     tone(buzzer, melody[i], noteDuration);
     delay(noteDuration * 1.3);
     noTone(buzzer);
   }
-}
-
-void loop() {
 }
